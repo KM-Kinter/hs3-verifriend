@@ -4,8 +4,8 @@ import aiohttp
 import asyncio
 
 TOKEN = "TOKEN"  # Replace with your bot token securely
-SOURCE_CHANNEL_ID = 1172246680662454314 # Your source channel ID here
-TARGET_CHANNEL_ID = 1193592031008788632 # Your target channel ID here
+SOURCE_CHANNEL_ID = 123456789 # Your source channel ID here
+TARGET_CHANNEL_ID = 123456789 # Your target channel ID here
 WEBHOOK_URL = "" # Your webhook URL here
 
 intents = discord.Intents.default()
