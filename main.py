@@ -3,11 +3,21 @@ from discord.ext import commands
 import aiohttp
 import asyncio
 import random
+import os
+from dotenv import load_dotenv
 
-TOKEN = "TOKEN"  # Replace with your bot token securely
-SOURCE_CHANNEL_ID = 123456789 # Your source channel ID here
-TARGET_CHANNEL_ID = 123456789 # Your target channel ID here
-WEBHOOK_URL = "" # Your webhook URL here
+# Load environment variables
+load_dotenv()
+
+# Get environment variables
+TOKEN = os.getenv('DISCORD_TOKEN')
+SOURCE_CHANNEL_ID = int(os.getenv('SOURCE_CHANNEL_ID'))
+TARGET_CHANNEL_ID = int(os.getenv('TARGET_CHANNEL_ID'))
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
+
+# Validate environment variables
+if not all([TOKEN, SOURCE_CHANNEL_ID, TARGET_CHANNEL_ID, WEBHOOK_URL]):
+    raise ValueError("Missing required environment variables. Please check your .env file.")
 
 QUESTIONS = [
     ("Jakie jest Twoje ulubione jedzenie?", "What is your favourite food?"),
