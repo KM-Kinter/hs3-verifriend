@@ -2,11 +2,25 @@ import discord
 from discord.ext import commands
 import aiohttp
 import asyncio
+import random
 
 TOKEN = "TOKEN"  # Replace with your bot token securely
 SOURCE_CHANNEL_ID = 123456789 # Your source channel ID here
 TARGET_CHANNEL_ID = 123456789 # Your target channel ID here
 WEBHOOK_URL = "" # Your webhook URL here
+
+QUESTIONS = [
+    ("Jakie jest Twoje ulubione jedzenie?", "What is your favourite food?"),
+    ("Jakie masz marzenia?", "What are your dreams?"),
+    ("Jakie supermoce chciałbyś/chciałabyś posiadać?", "What superpowers would you like to have?"),
+    ("Jaki jest Twój ulubiony film?", "What is your favourite movie?"),
+    ("Gdzie chciałbyś/chciałabyś mieszkać?", "Where would you like to live?"),
+    ("Jaki jest Twój ulubiony kolor?", "What is your favourite color?"),
+    ("Co robisz w wolnym czasie?", "What do you do in your free time?"),
+    ("Jaki jest Twój ulubiony sport?", "What is your favourite sport?"),
+    ("Jaki jest Twój ulubiony gatunek muzyki?", "What is your favourite music genre?"),
+    ("Jaka jest Twoja ulubiona pora roku?", "What is your favourite season?"),
+]
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
@@ -15,6 +29,11 @@ user_ids = set()
 
 async def send_welcome_message(user_ids):
     mentions = " ".join([f"<@{user_id}>" for user_id in user_ids])
+    
+    
+    selected_questions = random.sample(QUESTIONS, 4)
+    
+    
     welcome_message = f"""**Hej, {mentions} miło Was widzieć!**
 
 Zechcecie opowiedzieć coś o sobie?
@@ -25,7 +44,7 @@ Nie musicie się do nich ograniczać, ale może poniższe pytania mogą w tym po
 2. Co Cię pasjonuje?
 3. Czym się zajmujesz?
 4. Kto/co Cię do nas sprowadza?
-5. Jakie jest Twoje ulubione jedzenie?
+5. {selected_questions[0][0]}
 
 ---
 
@@ -37,7 +56,7 @@ Those questions may help, but there's no need to limit yourself to them 🙂
 2. What is your passion?
 3. What do you do?
 4. What/who brings you here?
-5. What is your favourite food?"""
+5. {selected_questions[0][1]}"""
 
     async with aiohttp.ClientSession() as session:
         webhook = discord.Webhook.from_url(WEBHOOK_URL, session=session)
