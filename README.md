@@ -4,7 +4,7 @@ A Discord bot that sends welcome messages with random questions to new users.
 
 ## Features
 
-- Automatically detects when 3 users join the source channel
+- Automatically detects when 3 users join the server and send something on source channel to be verified
 - Sends a welcome message with user mentions
 - Includes random questions in both Polish and English
 - Uses webhooks for message delivery
