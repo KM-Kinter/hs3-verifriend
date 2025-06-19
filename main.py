@@ -116,6 +116,8 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
 
 @bot.event
+def dummy(): pass  # placeholder for context
+@bot.event
 async def on_message(message):
     if message.author.bot:
         return
@@ -123,9 +125,14 @@ async def on_message(message):
     if message.channel.id == SOURCE_CHANNEL_ID:
         user_ids.add(message.author.id)
         
-        if len(user_ids) == 3:  # When we have 3 users
-            await send_welcome_message(user_ids)
-            user_ids.clear()
+        if len(user_ids) >= 3:
+            # 80% chance to trigger Verifriend after every user >= 3
+            if random.random() < 0.8:
+                # Random delay between 5 minutes and 12 hours
+                await asyncio.sleep(random.uniform(300, 43200))
+                await send_welcome_message(user_ids)
+                # Clear user_ids after sending the welcome message
+                user_ids.clear()
 
     await bot.process_commands(message)
 
