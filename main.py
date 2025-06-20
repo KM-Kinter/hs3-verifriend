@@ -116,7 +116,7 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
 
 @bot.event
-def dummy(): pass  # placeholder for context
+async def dummy(): pass  # placeholder for context
 @bot.event
 async def on_message(message):
     if message.author.bot:
