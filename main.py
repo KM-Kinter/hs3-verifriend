@@ -128,11 +128,12 @@ async def on_message(message):
         if len(user_ids) >= 3:
             # 80% chance to trigger Verifriend after every user >= 3
             if random.random() < 0.8:
+                # Copy and clear user_ids before sleeping to avoid race conditions
+                current_user_ids = set(user_ids)
+                user_ids.clear()
                 # Random delay between 5 minutes and 12 hours
                 await asyncio.sleep(random.uniform(300, 43200))
-                await send_welcome_message(user_ids)
-                # Clear user_ids after sending the welcome message
-                user_ids.clear()
+                await send_welcome_message(current_user_ids)
 
     await bot.process_commands(message)
 
